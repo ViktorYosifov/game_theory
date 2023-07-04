@@ -18,6 +18,7 @@ class Engine:
         self.pwp = pwp
         self.pwn = pwn
         self.spoints = spoints
+        self.previous_decisions = [True, True]
         self.initialize_players()
 
     def initialize_players(self):
@@ -39,8 +40,8 @@ class Engine:
 
 
     def decision_stage(self):
-        self.player_1.make_decision()
-        self.player_2.make_decision()
+        self.player_1.make_decision(previous_decision=self.previous_decisions[1])
+        self.player_2.make_decision(previous_decision=self.previous_decisions[0])
 
     def calculation(self):
         if self.player_1.positive and self.player_2.positive:
@@ -60,6 +61,8 @@ class Engine:
         for round in range(1, self.rounds + 1):
             self.decision_stage()
             self.calculation()
+            self.previous_decisions = [self.player_1.positive, self.player_2.positive]
+            print("---------------------------------------")
 
         print(f"{self.player_1.name} has total points of {self.player_1.points}")
         print(f"{self.player_2.name} has total points of {self.player_2.points}")
