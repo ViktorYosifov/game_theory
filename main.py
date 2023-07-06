@@ -19,7 +19,7 @@ if __name__ == "__main__":
         pwp=2,
         plp=4,
         pln=2,
-        player_1=CopyPlayer,
+        player_1=PsychoPlayer,
         player_2=CustomPlayer
     )
 

@@ -54,3 +54,14 @@ class RandomPlayer(Player):
     def make_decision(self, **kwargs):
         positive = random.choice([True, False])
         super().make_decision(positive)
+
+class PsychoPlayer(Player):
+    def make_decision(self, **kwargs):
+        previous_decision = kwargs['previous_decision']
+        dec = int(input("Enter 1 for a positive decision and 0 for a negative decision: "))
+        super().make_decision(dec)
+        if dec != 1 or dec != 0:
+            if previous_decision == 1:
+                super().make_decision(False)
+            elif previous_decision == 0:
+                super().make_decision(True)
