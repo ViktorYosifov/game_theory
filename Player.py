@@ -33,6 +33,30 @@ class Socializer(Player):
     def make_decision(self, **kwargs):
         super().make_decision(True)
 
+class CooperativePlayer(Player):
+    def make_decision(self, **kwargs):
+        choice = random.choices(population=[True, False], weights=[0.66, 0.33])[0]
+        super().make_decision(choice)
+
+class RevengefulPlayer(Player):
+    def make_decision(self, **kwargs):
+        try:
+            self.counter
+        except:
+            self.counter = 0
+
+        if not kwargs["previous_decision"]:
+            self.counter += 1
+        elif self.counter > 0:
+            self.counter -= 1
+
+        if self.counter > 0:
+            super().make_decision(False)
+        else:
+            super().make_decision(True)
+# class AggressivePlayer(Player):
+#     def make_decision(self, **kwargs):
+
 class CopyPlayer(Player):
     def make_decision(self, **kwargs):
         previous_decision = kwargs['previous_decision']
@@ -65,3 +89,4 @@ class PsychoPlayer(Player):
                 super().make_decision(False)
             elif previous_decision == 0:
                 super().make_decision(True)
+
