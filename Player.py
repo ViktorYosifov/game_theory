@@ -54,8 +54,10 @@ class RevengefulPlayer(Player):
             super().make_decision(False)
         else:
             super().make_decision(True)
+
 # class AggressivePlayer(Player):
 #     def make_decision(self, **kwargs):
+
 
 class CopyPlayer(Player):
     def make_decision(self, **kwargs):
