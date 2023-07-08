@@ -12,6 +12,15 @@ from Player import *
 
 if __name__ == "__main__":
 
+    players = {
+        "Socializer": Socializer,
+        "CooperativePlayer": CooperativePlayer,
+        "RevengefulPlayer": RevengefulPlayer,
+        "CopyPlayer": CopyPlayer,
+        "Killer": Killer,
+        "RandomPlayer": RandomPlayer
+    }
+
     eng = Engine(
         **config.get_conf(),
         player_1=RandomPlayer,
