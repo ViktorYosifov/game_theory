@@ -1,12 +1,6 @@
-# 2 players
-# bank?
-# complex logic
-# final aim - simulation
-
 from Config import config
-from Engine import *
 from Player import *
-
+from SimulationManager import SimulationManager
 
 
 
@@ -21,10 +15,5 @@ if __name__ == "__main__":
         "RandomPlayer": RandomPlayer
     }
 
-    eng = Engine(
-        **config.get_conf(),
-        player_1=RandomPlayer,
-        player_2=RevengefulPlayer
-    )
-
-    eng.run()
+    sim = SimulationManager(players, config)
+    sim.run()

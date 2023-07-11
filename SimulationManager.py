@@ -1,16 +1,23 @@
 from Engine import *
 from Config import Config
 from Player import *
+import uuid
+import datetime
 
+def print_and_return(*args):
+    args = [str(i for i in args)]
+    print(*args)
+    return " ".join(args) + "\n"
 
 class SimulationManager:
     def __init__(self, players : dict, config : dict):
         self.players = players
         self.config = config
 
-    def create_ranklist(self):
-        self.ranklist ={}
-        for player in players.keys():
+
+    def create_ranklist(self, ranklist: dict):
+        self.ranklist = {}
+        for player in self.players.keys():
             self.ranklist[player] = 0
 
     def run_simulation(self, player_1, player_2):
@@ -24,7 +31,13 @@ class SimulationManager:
         return eng.run()
 
     def run(self):
-        p = self.players.keys()
+        results = "Input: \n"
+        conf = self.config.get_conf()
+        for key in self.config.get_conf():
+            results += f"{key}: {conf[key]}\n"
+        results += "\n-----------------------\nOutput: \n"
+
+        p = list(self.players.keys())
         for _ in range(len(p)):
             p1 = p.pop(0)
             for p2 in p:
@@ -38,4 +51,9 @@ class SimulationManager:
                 print(p2, "now has", self.ranklist[p2])
 
         for player in self.ranklist.keys():
-            print(player, " - ", self.ranklist[player])
+            results += print_and_return(player, " - ", self.ranklist[player])
+
+        filename = str(datetime.datetime.now())
+        filename = filename.replace(" ", "_").replace(":", "_") + ".txt"
+        with open(filename, "w") as file:
+            file.write(results)
